@@ -1,0 +1,97 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="kocLt-MKNq5uIpyBkClR">
+    <mxGraphModel dx="1075" dy="985" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="s-lLfEQPn7LP4TtFgbAr-3" edge="1" parent="1" source="s-lLfEQPn7LP4TtFgbAr-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;defaultLabelBackgroundColor=page;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="485" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s-lLfEQPn7LP4TtFgbAr-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fillColor=light-dark(#FFFFFF,#99FFCC);fontColor=light-dark(#000000,#0F0F0F);" value="Start" vertex="1">
+          <mxGeometry height="60" width="120" x="425" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="s-lLfEQPn7LP4TtFgbAr-2" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="484.5" y="330" as="sourcePoint" />
+            <mxPoint x="484.5" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s-lLfEQPn7LP4TtFgbAr-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#FFFFFF,#66B2FF);fontColor=light-dark(#000000,#000000);" value="Load saved alarms" vertex="1">
+          <mxGeometry height="60" width="120" x="425" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="s-lLfEQPn7LP4TtFgbAr-6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#FFFFFF,#66B2FF);fontColor=light-dark(transparent,#000000);" value="Set alarm and partner phone number" vertex="1">
+          <mxGeometry height="60" width="120" x="425" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="s-lLfEQPn7LP4TtFgbAr-7" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="484.5" y="460" as="sourcePoint" />
+            <mxPoint x="484.5" y="530" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s-lLfEQPn7LP4TtFgbAr-8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#FFFFFF,#66B2FF);fontColor=light-dark(#000000,#000000);" value="Save alarm and wait until alarm time" vertex="1">
+          <mxGeometry height="60" width="120" x="425" y="530" as="geometry" />
+        </mxCell>
+        <mxCell id="s-lLfEQPn7LP4TtFgbAr-11" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="484.5" y="590" as="sourcePoint" />
+            <mxPoint x="484.5" y="660" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s-lLfEQPn7LP4TtFgbAr-12" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#FFFFFF,#66B2FF);fontColor=light-dark(#000000,#000000);" value="Play alarm" vertex="1">
+          <mxGeometry height="60" width="120" x="425" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="s-lLfEQPn7LP4TtFgbAr-17" edge="1" parent="1" source="s-lLfEQPn7LP4TtFgbAr-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;defaultLabelBackgroundColor=page;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="920" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s-lLfEQPn7LP4TtFgbAr-13" parent="1" style="rhombus;whiteSpace=wrap;html=1;shapeInside=1;fillColor=light-dark(#FFFFFF,#FF99FF);fontColor=light-dark(#000000,#000000);" value="Confirmed awake before time runs out?" vertex="1">
+          <mxGeometry height="110" width="210" x="370" y="790" as="geometry" />
+        </mxCell>
+        <mxCell id="s-lLfEQPn7LP4TtFgbAr-14" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;defaultLabelBackgroundColor=page;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="480" y="720" as="sourcePoint" />
+            <mxPoint x="480" y="790" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s-lLfEQPn7LP4TtFgbAr-21" edge="1" parent="1" source="s-lLfEQPn7LP4TtFgbAr-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;defaultLabelBackgroundColor=page;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="260" y="1070" />
+            </Array>
+            <mxPoint x="380" y="1070" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s-lLfEQPn7LP4TtFgbAr-15" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#FFFFFF,#66B2FF);fontColor=light-dark(#000000,#000000);" value="Play alarm" vertex="1">
+          <mxGeometry height="60" width="120" x="200" y="920" as="geometry" />
+        </mxCell>
+        <mxCell id="s-lLfEQPn7LP4TtFgbAr-16" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=light-dark(#FFFFFF,#66B2FF);fontColor=light-dark(#000000,#000000);" value="Play alarm" vertex="1">
+          <mxGeometry height="60" width="120" x="640" y="920" as="geometry" />
+        </mxCell>
+        <mxCell id="s-lLfEQPn7LP4TtFgbAr-18" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;defaultLabelBackgroundColor=page;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="s-lLfEQPn7LP4TtFgbAr-16">
+          <mxGeometry relative="1" x="-0.1897" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="845" />
+            </Array>
+            <mxPoint x="580" y="845" as="sourcePoint" />
+            <mxPoint x="700" y="910" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="s-lLfEQPn7LP4TtFgbAr-19" parent="1" style="rounded=1;whiteSpace=wrap;html=1;roundedPerimeter=1;fillColor=light-dark(#FFFFFF,#99FFCC);fontColor=light-dark(#000000,#0F0F0F);" value="Start" vertex="1">
+          <mxGeometry height="60" width="120" x="415" y="1030" as="geometry" />
+        </mxCell>
+        <mxCell id="s-lLfEQPn7LP4TtFgbAr-22" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;defaultLabelBackgroundColor=page;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="1070" />
+            </Array>
+            <mxPoint x="700" y="980" as="sourcePoint" />
+            <mxPoint x="590" y="1070" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
