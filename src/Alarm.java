@@ -28,4 +28,7 @@ public class Alarm {
         return confirmed;
     }
     
+    public void confirm() {
+        confirmed = true;
+    }
 }

@@ -1,6 +1,9 @@
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -8,6 +11,39 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         ArrayList<Alarm> alarms = new ArrayList<>();
+        File saveFile = new File("data/alarms.txt");
+
+        if (saveFile.exists()) {
+            try {
+                BufferedReader fileReader = new BufferedReader(
+                    new FileReader(saveFile));
+                    String savedLine = fileReader.readLine();
+
+                    while (savedLine != null) {
+                        String[] parts = savedLine.split("\\|", -1);
+
+                        if (parts.length == 4) {
+                            try {
+                                LocalDateTime scheduledTime = LocalDateTime.parse(parts[0]);
+                                Alarm savedAlarm = new Alarm(scheduledTime, parts[1], parts[2]);
+                        
+                                if (parts[3].equals("true")) {
+                                    savedAlarm.confirm();
+                                }
+                        
+                                alarms.add(savedAlarm);
+                            } catch (DateTimeParseException e) {
+                                System.out.println("Skipped a saved alarm with an invalid date or time.");
+                            }
+                        }                        savedLine = fileReader.readLine();
+                    }
+
+                    fileReader.close();
+
+            } catch (IOException e) {
+                System.out.println("Could not read saved alarms");
+            }
+        }
             
 
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -48,6 +84,16 @@ public class Main {
                                     if (scheduledTime.isAfter(LocalDateTime.now())) {
                                         Alarm alarm = new Alarm(scheduledTime, label, partnerPhoneNumber);
                                         alarms.add(alarm);
+                                        saveFile.getParentFile().mkdirs();
+                                        PrintWriter writer = new PrintWriter("data/alarms.txt");
+                                        for (Alarm savedAlarm : alarms) {
+                                            writer.println(savedAlarm.getScheduledTime() + "|" 
+                                            + savedAlarm.getLabel() + "|"
+                                            + savedAlarm.getPartnerPhoneNumber() + "|"
+                                            + savedAlarm.isConfirmed());
+                                        }
+                                        writer.close();
+                                        
                                         System.out.println("Alarm created: " + alarm.getLabel());
                                     } else {
                                         System.out.println("Choose a date and time in the future.");
