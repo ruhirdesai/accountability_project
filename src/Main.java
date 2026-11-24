@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         ArrayList<Alarm> alarms = new ArrayList<>();
+
         File saveFile = new File("data/alarms.txt");
 
         if (saveFile.exists()) {
@@ -47,6 +48,33 @@ public class Main {
             
 
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            Thread alarmChecker = new Thread(new Runnable() {
+                
+                public void run() {
+                    while (true) { 
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            return;
+                        }
+                        synchronized (alarms) {
+                            LocalDateTime currentTime = LocalDateTime.now();
+
+                            for (Alarm alarm : alarms) {
+                                if (alarm.isDue(currentTime)) {
+                                    alarm.markTriggered();
+                                    System.out.println("\nAlarm triggered: " + 
+                                        alarm.getLabel());
+                                }
+                            
+                            }
+                        }
+                    }
+                }
+                });
+                alarmChecker.start();
+            
+
                     try {
                         while (true) { 
                             
@@ -83,7 +111,10 @@ public class Main {
 
                                     if (scheduledTime.isAfter(LocalDateTime.now())) {
                                         Alarm alarm = new Alarm(scheduledTime, label, partnerPhoneNumber);
-                                        alarms.add(alarm);
+                                        
+                                        synchronized (alarms) {
+                                            alarms.add(alarm);
+                                        }
                                         saveFile.getParentFile().mkdirs();
                                         PrintWriter writer = new PrintWriter("data/alarms.txt");
                                         for (Alarm savedAlarm : alarms) {
@@ -123,6 +154,8 @@ public class Main {
                     System.out.println("Could not read your choice.");
                 
             }
+            alarmChecker.interrupt();
+
         
     }
 }
