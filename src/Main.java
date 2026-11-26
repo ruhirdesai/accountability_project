@@ -79,6 +79,9 @@ public class Main {
                                 System.out.println("Time expired: " + activeAlarm.getLabel());
                                     activeAlarm.markMissed();
                                     saveAlarms(alarms, saveFile);
+                                    System.out.println("Simulated SMS to " + activeAlarm.getPartnerPhoneNumber()
+                                        + ": The user did not confirm they were awake for "
+                                        + activeAlarm.getLabel() + ".");
                                     activeAlarm = null;
                             }
 
