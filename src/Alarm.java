@@ -5,6 +5,7 @@ public class Alarm {
     private String partnerPhoneNumber;
     private boolean confirmed;
     private boolean triggered;
+    private boolean missed;
 
     public Alarm(LocalDateTime scheduledTime, String label, String partnerPhoneNumber) {
         this.scheduledTime = scheduledTime;
@@ -34,11 +35,19 @@ public class Alarm {
     }
 
     public boolean isDue(LocalDateTime currentTime) {
-        return !triggered && !confirmed && 
-        !scheduledTime.isAfter(currentTime);
+        return !triggered && !confirmed && !missed
+        && !scheduledTime.isAfter(currentTime);
     }
 
     public void markTriggered() {
         triggered = true;
+    }
+    
+    public void markMissed() {
+        missed = true;
+    }
+    
+    public boolean isMissed() {
+        return missed;
     }
 }

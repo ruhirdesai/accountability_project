@@ -39,6 +39,9 @@ public class Main {
                         
                                 if (parts[3].equals("true")) {
                                     savedAlarm.confirm();
+                                    
+                                } else if (parts[3].equals("missed")) {
+                                    savedAlarm.markMissed();
                                 }
                         
                                 alarms.add(savedAlarm);
@@ -59,6 +62,7 @@ public class Main {
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             Thread alarmChecker = new Thread(new Runnable() {
                 
+                @Override
                 public void run() {
                     while (true) { 
                         try {
@@ -73,7 +77,9 @@ public class Main {
                                     alarmSound.stop();
                                 }
                                 System.out.println("Time expired: " + activeAlarm.getLabel());
-                                activeAlarm = null;
+                                    activeAlarm.markMissed();
+                                    saveAlarms(alarms, saveFile);
+                                    activeAlarm = null;
                             }
 
                             for (Alarm alarm : alarms) {
@@ -122,6 +128,7 @@ public class Main {
                                         alarmSound.stop();
                                     }
                                     activeAlarm.confirm();
+                                    saveAlarms(alarms, saveFile);
                                     System.out.println("Confirmed: " + activeAlarm.getLabel());
                                     activeAlarm = null;
                                 }
@@ -152,16 +159,9 @@ public class Main {
                                         
                                         synchronized (alarms) {
                                             alarms.add(alarm);
+                                            saveAlarms(alarms, saveFile);
                                         }
-                                        saveFile.getParentFile().mkdirs();
-                                        PrintWriter writer = new PrintWriter("data/alarms.txt");
-                                        for (Alarm savedAlarm : alarms) {
-                                            writer.println(savedAlarm.getScheduledTime() + "|" 
-                                            + savedAlarm.getLabel() + "|"
-                                            + savedAlarm.getPartnerPhoneNumber() + "|"
-                                            + savedAlarm.isConfirmed());
-                                        }
-                                        writer.close();
+                                        
                                         
                                         System.out.println("Alarm created: " + alarm.getLabel());
                                     } else {
@@ -213,5 +213,31 @@ public class Main {
                     return null;
                 }
             }
-    
+            private static void saveAlarms(ArrayList<Alarm> alarms, File saveFile) {
+                try {
+                    saveFile.getParentFile().mkdirs();
+                    PrintWriter writer = new PrintWriter(saveFile);
+            
+                    for (Alarm alarm : alarms) {
+                        String status = "false";
+                        if (alarm.isConfirmed()) {
+                            status = "true";
+                        } else if (alarm.isMissed()) {
+                            status = "missed";
+                        }
+            
+                        writer.println(alarm.getScheduledTime() + "|"
+                                + alarm.getLabel() + "|"
+                                + alarm.getPartnerPhoneNumber() + "|"
+                                + status);
+                    }
+            
+                    writer.close();
+                    if (writer.checkError()) {
+                        System.out.println("Could not save all alarms.");
+                    }
+                } catch (IOException e) {
+                    System.out.println("Could not save alarms: " + e.getMessage());
+                }
+            }
 }
