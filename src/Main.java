@@ -7,9 +7,18 @@ import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+
 
 public class Main {
+    private static Alarm activeAlarm;
+    private static LocalDateTime confirmationDeadline;
+
     public static void main(String[] args) {
+        Clip alarmSound = loadAlarmSound();
+
         ArrayList<Alarm> alarms = new ArrayList<>();
 
         File saveFile = new File("data/alarms.txt");
@@ -59,12 +68,26 @@ public class Main {
                         }
                         synchronized (alarms) {
                             LocalDateTime currentTime = LocalDateTime.now();
+                            if (activeAlarm != null && !currentTime.isBefore(confirmationDeadline)) {
+                                if (alarmSound != null && alarmSound.isOpen()) {
+                                    alarmSound.stop();
+                                }
+                                System.out.println("Time expired: " + activeAlarm.getLabel());
+                                activeAlarm = null;
+                            }
 
                             for (Alarm alarm : alarms) {
-                                if (alarm.isDue(currentTime)) {
+                                if (activeAlarm == null && alarm.isDue(currentTime)) {
+                                    activeAlarm = alarm;
+                                    confirmationDeadline = currentTime.plusSeconds(15);
                                     alarm.markTriggered();
                                     System.out.println("\nAlarm triggered: " + 
                                         alarm.getLabel());
+                                        System.out.println("Type awake and press Enter within 15 seconds.");
+                                        if (alarmSound != null && alarmSound.isOpen()) {
+                                            alarmSound.setFramePosition(0);
+                                            alarmSound.loop(Clip.LOOP_CONTINUOUSLY);
+                                        }
                                 }
                             
                             }
@@ -73,7 +96,7 @@ public class Main {
                 }
                 });
                 alarmChecker.start();
-            
+                
 
                     try {
                         while (true) { 
@@ -88,7 +111,22 @@ public class Main {
                         if (choice == null) {
                             break;
                         }
-                        if (choice.equals("1")) {
+                        if ("awake".equalsIgnoreCase(choice.trim())) {
+                            synchronized (alarms) {
+                                if (activeAlarm == null) {
+                                    System.out.println("No alarm is waiting for confirmation.");
+                                } else if (!LocalDateTime.now().isBefore(confirmationDeadline)) {
+                                    System.out.println("The response window has ended.");
+                                } else {
+                                    if (alarmSound != null && alarmSound.isOpen()) {
+                                        alarmSound.stop();
+                                    }
+                                    activeAlarm.confirm();
+                                    System.out.println("Confirmed: " + activeAlarm.getLabel());
+                                    activeAlarm = null;
+                                }
+                            }
+                        } else if (choice.equals("1")) {
                             System.out.print("Enter alarm label: ");
                             String label = br.readLine();
                             if (label == null) {
@@ -156,6 +194,24 @@ public class Main {
             }
             alarmChecker.interrupt();
 
-        
-    }
+            synchronized (alarms) {
+                if (alarmSound != null) {
+                    alarmSound.close();
+                }
+            }
+        }
+            private static Clip loadAlarmSound() {
+                try {
+                    AudioInputStream sound = 
+                AudioSystem.getAudioInputStream(new File("sounds/alarm.wav"));
+                    Clip clip = AudioSystem.getClip();
+                    clip.open(sound);
+                    sound.close();
+                    return clip;
+                } catch (Exception e) {
+                    System.out.println("Could not load the alarm sound: " + e.getMessage());
+                    return null;
+                }
+            }
+    
 }
