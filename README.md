@@ -31,6 +31,19 @@ The working MVP will run in the terminal. The computer must stay awake and the p
 - Git and GitHub for version control.
 - An SMS service for text notifications, which still needs to be selected and tested.
 
+  ## Setup and Run
+
+You need a Java Development Kit (JDK) with `javac` and `java` available in your terminal. Run the following from the repository’s top-level folder, where `src/` and `sounds/` are located.
+
+```bash
+javac -d build src/Alarm.java src/Main.java
+java -cp build Main
+```
+
+The app includes its alarm sound at `sounds/alarm.wav`. Partner notifications are simulated in the terminal, so you don’t need an SMS account or API key.
+
+Keep the program running and the computer awake until the alarm goes off.
+
 ## Project Structure
 
 - `src/`: Java source code.
