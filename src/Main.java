@@ -46,12 +46,14 @@ public class Main {
                         
                                 alarms.add(savedAlarm);
                             } catch (DateTimeParseException e) {
-                                System.out.println("Skipped a saved alarm with an invalid date or time.");
-                            }
-                        }                        savedLine = fileReader.readLine();
+                                System.out.println("Skipped a saved alarm with an invalid date or time."); 
+                                               }                       
+                                            }                        
+                                            savedLine = fileReader.readLine();
                     }
 
                     fileReader.close();
+                
 
             } catch (IOException e) {
                 System.out.println("Could not read saved alarms");
@@ -80,7 +82,7 @@ public class Main {
                                     activeAlarm.markMissed();
                                     saveAlarms(alarms, saveFile);
                                     System.out.println("Simulated SMS to " + activeAlarm.getPartnerPhoneNumber()
-                                        + ": The user did not confirm they were awake for "
+                                    + ": The user did not confirm they were awake for "
                                         + activeAlarm.getLabel() + ".");
                                     activeAlarm = null;
                             }
@@ -142,19 +144,43 @@ public class Main {
                             if (label == null) {
                                 break;
                             }
-                            System.out.println("Alarm label: " + label);
+                            label = label.trim();
+
+                            if (label.isEmpty() || label.contains("|")) {
+                                System.out.println("Enter a label that is not blank and does not contain |.");
+                                continue;
+                            }
                             System.out.print("Enter partner phone number: ");
                             String partnerPhoneNumber = br.readLine();
                             if (partnerPhoneNumber == null) {
                                 break;
                             }
-                            System.out.println("Partner phone number: " + partnerPhoneNumber);
-                            System.out.print("Enter alarm date and time (YYYY-MM-DDTHH:MM): ");
-                            String dateTimeInput = br.readLine();
-                            if (dateTimeInput == null) {
-                                break;
-                            }
-                                try {
+                            partnerPhoneNumber = partnerPhoneNumber.trim();
+                            String digits = partnerPhoneNumber.replace("-", "");
+
+                                boolean validPhoneNumber = digits.length() == 10
+                                        && (partnerPhoneNumber.length() == 10
+                                        || (partnerPhoneNumber.length() == 12
+                                        && partnerPhoneNumber.charAt(3) == '-'
+                                        && partnerPhoneNumber.charAt(7) == '-'));
+
+                                    for (int i = 0; i < digits.length(); i++) {
+                                        char digit = digits.charAt(i);
+                                        if (digit < '0' || digit > '9') {
+                                            validPhoneNumber = false;
+                                        }
+                                    }
+
+                                    if (!validPhoneNumber) {
+                                        System.out.println("Enter 10 digits, with or without dashes like 202-555-0100.");
+                                        continue;
+                                    }
+                                    System.out.print("Enter alarm date and time (YYYY-MM-DDTHH:MM): ");
+                                    String dateTimeInput = br.readLine();
+                                    if (dateTimeInput == null) {
+                                        break;
+                                    }
+                                    try {
                                     LocalDateTime scheduledTime = LocalDateTime.parse(dateTimeInput);
 
                                     if (scheduledTime.isAfter(LocalDateTime.now())) {
@@ -175,6 +201,7 @@ public class Main {
                                 }
                             } 
                         else if (choice.equals("2")) {
+                            synchronized (alarms) {
                             if (alarms.isEmpty()) {
                                 System.out.println("No alarms yet.");
                             } else {
@@ -182,6 +209,7 @@ public class Main {
                                     System.out.println(alarm.getScheduledTime() + " - " + alarm.getLabel());
                                 }
                             }
+                        }
                         } 
                         else if (choice.equals("3")) {
                             System.out.println("Goodbye!");
