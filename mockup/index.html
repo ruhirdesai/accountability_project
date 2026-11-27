@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Accountability Alarm App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<h1>Accountability Alarm App</h1>
+
+<section>
+    <h2>Create an alarm</h2>
+
+    <p>
+        <label for="alarm-label">Alarm label</label>
+        <input id="alarm-label" type="text" placeholder="Math Exam">
+    </p>
+
+    <p>
+        <label for="alarm-time">Date and time</label>
+        <input id="alarm-time" type="datetime-local">
+    </p>
+
+    <p>
+        <label for="partner-phone">Partner phone number</label>
+        <input id="partner-phone" type="tel" placeholder="202-555-0100">
+    </p>
+
+    <button type="button">Create alarm</button>
+</section>
+
+<section>
+    <h2>Scheduled alarms</h2>
+    <ul>
+        <li>Math Exam — 7:30 p.m.</li>
+        <li>Chemistry Lab — 8:15 a.m.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Alarm ringing</h2>
+    <p>Math Exam</p>
+    <p>Confirm within 15 seconds to avoid notifying your partner.</p>
+    <button type="button">I’m awake</button>
+</section>
+
+</body>
+</html>
