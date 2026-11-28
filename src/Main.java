@@ -116,6 +116,7 @@ public class Main {
                             System.out.println("1. Create an alarm");
                             System.out.println("2. List alarms");
                             System.out.println("3. Exit");
+                            System.out.println("4. View wake-up history");
                             System.out.print("Choose an option: ");
 
                         String choice = br.readLine();
@@ -210,13 +211,36 @@ public class Main {
                                 }
                             }
                         }
-                        } 
+                        } else if (choice.equals("4")) {
+                            synchronized (alarms) {
+                                boolean foundHistory = false;
+                        
+                                for (Alarm alarm : alarms) {
+                                    String outcome;
+                                    if (alarm.isConfirmed()) {
+                                        outcome = "Confirmed";
+                                    } else if (alarm.isMissed()) {
+                                        outcome = "Missed";
+                                    } else {
+                                        continue;
+                                    }
+                        
+                                    System.out.println(alarm.getScheduledTime() + " - "
+                                            + alarm.getLabel() + " - " + outcome);
+                                    foundHistory = true;
+                                }
+                        
+                                if (!foundHistory) {
+                                    System.out.println("No completed alarms yet.");
+                                }
+                            }
+                        }
                         else if (choice.equals("3")) {
                             System.out.println("Goodbye!");
                             break;
 
                         } else {
-                            System.out.println("Please enter 1, 2, or 3.");
+                            System.out.println("Please enter 1, 2, 3, or 4.");
                         }
                     }
                     } catch (IOException e) {
