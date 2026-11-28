@@ -22,10 +22,10 @@ The working MVP will run in the terminal. The computer must stay awake and the p
 - Play an alarm sound and allow 15 seconds to confirm.
 - Save confirmed and missed outcomes and print a simulated SMS for missed alarms.
 - Create an HTML/CSS interface mockup in `mockup/`.
+- Show a history of missed alarms and successful wake-ups.
 
 ### Planned
 - Add recurring alarms for weekly class schedules.
-- Show a history of missed alarms and successful wake-ups.
 - Allow partners to confirm they checked on the user.
 - Add reminders for regular tasks.
 
@@ -56,6 +56,7 @@ Keep the program running and the computer awake until the alarm goes off.
 2. Choose `2` to list alarms. The app saves alarms in `data/alarms.txt` and loads them when it starts.
 3. When the alarm rings, type `awake` at the menu prompt and press Enter within 15 seconds. If the window expires, the app stops the sound and prints a simulated SMS to the terminal.
 4. Choose `3` to exit.
+5. Choose 4 to view confirmed and missed alarms with their scheduled times and labels.
 
 ## Project Structure
 
